@@ -67,10 +67,8 @@
     /* ── NAV ── */
     nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s, background-color .35s}
     nav.scrolled{border-bottom-color:var(--border)}
-    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);text-decoration:none;transition:color .35s;display:flex;align-items:center;gap:10px}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);text-decoration:none;transition:color .35s}
     .nav-logo span{color:var(--accent)}
-    .nav-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border);transition:border-color .3s,transform .3s;flex-shrink:0}
-    .nav-logo:hover .nav-avatar{border-color:var(--accent);transform:scale(1.05)}
     .nav-right{display:flex;align-items:center;gap:12px}
 
     /* Theme Toggle */
@@ -106,19 +104,18 @@
     .btn-g{padding:13px 30px;border:1px solid var(--border);color:var(--text);border-radius:100px;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:600;text-decoration:none;transition:all .3s}
     .btn-g:hover{border-color:var(--accent);color:var(--accent)}
     /* Hero photo */
-    .hero-photo-wrap{opacity:0;animation:fadeUp .8s ease forwards .5s;flex-shrink:0}
+    .hero-photo-wrap{opacity:0;animation:fadeUp .8s ease forwards .5s;flex-shrink:0;align-self:center}
     .hero-photo{
-      width:320px;height:380px;
-      object-fit:cover;object-position:center top;
-      border-radius:180px 180px 140px 140px;
-      border:3px solid var(--border);
+      width:340px;height:auto;
       display:block;
-      filter:grayscale(8%);
-      transition:border-color .3s,filter .3s;
-      box-shadow:0 24px 60px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.04);
+      border-radius:16px;
+      border:2px solid var(--border);
+      transition:border-color .4s, box-shadow .4s;
+      box-shadow:0 32px 72px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.04);
     }
-    .hero-photo-wrap:hover .hero-photo{border-color:var(--accent);filter:grayscale(0%)}
-    [data-theme="light"] .hero-photo{box-shadow:0 24px 60px rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.04)}
+    .hero-photo-wrap:hover .hero-photo{border-color:var(--accent);box-shadow:0 32px 72px rgba(232,85,61,.18),0 0 0 1px rgba(232,85,61,.2)}
+    [data-theme="light"] .hero-photo{box-shadow:0 20px 56px rgba(0,0,0,.14);border-color:var(--border)}
+    [data-theme="light"] .hero-photo-wrap:hover .hero-photo{box-shadow:0 20px 56px rgba(232,85,61,.15)}
     .scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:.62rem;letter-spacing:3px;text-transform:uppercase;animation:bounce 2s infinite}
     .scroll-hint .line{width:1px;height:36px;background:linear-gradient(to bottom,var(--accent),transparent)}
     @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-photo-wrap{display:none}}
@@ -254,10 +251,7 @@
 
 <!-- ── NAV ── -->
 <nav id="nav">
-  <a href="#" class="nav-logo">
-    <img class="nav-avatar" src="https://raw.githubusercontent.com/julikumari23/portfolio/main/juli-profile.jpg" alt="Juli Kumari">
-    Juli <span>Kumari</span>
-  </a>
+  <a href="#" class="nav-logo">Juli <span>Kumari</span></a>
   <div class="nav-right">
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">
       <!-- Moon: shown in dark mode -->
