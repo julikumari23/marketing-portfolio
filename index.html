@@ -1,39 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Juli Kumari — B2B Marketing Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <style>
+    /* ── THEME TOKENS ── */
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --card: #1a1a26;
       --accent: #e8553d;
       --accent-glow: rgba(232,85,61,0.15);
-      --text: #e8e6e3;
-      --muted: #8a8a9a;
-      --border: #2a2a3a;
       --gold: #d4a853;
       --p: #9333ea;
       --p-glow: rgba(147,51,234,0.12);
       --l: #0ea5e9;
       --l-glow: rgba(14,165,233,0.12);
+      --n: #f97316;
+      --n-glow: rgba(249,115,22,0.12);
     }
+    [data-theme="dark"] {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --card: #1a1a26;
+      --text: #e8e6e3;
+      --muted: #8a8a9a;
+      --border: #2a2a3a;
+      --nav-bg: rgba(10,10,15,0.88);
+      --filter-bg: rgba(10,10,15,0.92);
+      --card-shadow: 0 16px 48px rgba(147,51,234,.1);
+      --card-shadow-l: 0 16px 48px rgba(14,165,233,.1);
+      --card-shadow-n: 0 16px 48px rgba(249,115,22,.1);
+    }
+    [data-theme="light"] {
+      --bg: #f4f3ef;
+      --surface: #eceae3;
+      --card: #ffffff;
+      --text: #1a1825;
+      --muted: #696880;
+      --border: #dddbd2;
+      --accent-glow: rgba(232,85,61,0.07);
+      --p-glow: rgba(147,51,234,0.07);
+      --l-glow: rgba(14,165,233,0.07);
+      --n-glow: rgba(249,115,22,0.07);
+      --nav-bg: rgba(244,243,239,0.92);
+      --filter-bg: rgba(244,243,239,0.95);
+      --card-shadow: 0 12px 40px rgba(147,51,234,.12);
+      --card-shadow-l: 0 12px 40px rgba(14,165,233,.12);
+      --card-shadow-n: 0 12px 40px rgba(249,115,22,.12);
+    }
+
+    /* ── SMOOTH THEME TRANSITION ── */
+    body, nav, .filter-wrap, .brand, .about, .tools, .contact, footer,
+    .card, .card-info, .video-card, .video-info, .exp, .chip, .skill,
+    .clink, .badge, .fbtn, .cat-hdr .cnt, .pages-badge {
+      transition: background-color .35s ease, border-color .35s ease, color .35s ease, box-shadow .35s ease;
+    }
+    /* card hover still uses cubic — override with specificity */
+    .card { transition: background-color .35s ease, border-color .35s ease, color .35s ease,
+                        transform .4s cubic-bezier(.23,1,.32,1), box-shadow .4s; }
+
+    /* ── BASE ── */
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
 
-    /* NAV */
-    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.88);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s, background-color .35s}
     nav.scrolled{border-bottom-color:var(--border)}
-    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);text-decoration:none}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);text-decoration:none;transition:color .35s}
     .nav-logo span{color:var(--accent)}
+    .nav-right{display:flex;align-items:center;gap:12px}
+
+    /* Theme Toggle */
+    .theme-btn{
+      width:40px;height:40px;border-radius:50%;border:1px solid var(--border);
+      background:var(--card);color:var(--muted);cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition:all .25s;flex-shrink:0;
+    }
+    .theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .theme-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .icon-sun{display:none}
+    .icon-moon{display:block}
+    [data-theme="light"] .icon-sun{display:block}
+    [data-theme="light"] .icon-moon{display:none}
+
     .nav-cta{padding:9px 22px;background:var(--accent);color:#fff;border:none;border-radius:100px;font-family:'Sora',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .3s}
     .nav-cta:hover{background:#d44a33}
 
-    /* HERO */
+    /* ── HERO ── */
     .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 8% 100px;position:relative;background:radial-gradient(ellipse 60% 50% at 70% 20%,var(--accent-glow) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(212,168,83,.06) 0%,transparent 60%),var(--bg)}
     .hero-tag{font-size:.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:24px;opacity:0;animation:fadeUp .8s ease forwards .2s}
     .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(3rem,8vw,7rem);line-height:1.05;letter-spacing:-2px;margin-bottom:28px;opacity:0;animation:fadeUp .8s ease forwards .4s}
@@ -50,56 +105,71 @@
     .scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:.62rem;letter-spacing:3px;text-transform:uppercase;animation:bounce 2s infinite}
     .scroll-hint .line{width:1px;height:36px;background:linear-gradient(to bottom,var(--accent),transparent)}
 
-    /* FILTER BAR */
-    .filter-wrap{position:sticky;top:57px;z-index:100;background:rgba(10,10,15,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 8%}
-    .filter-bar{display:flex;gap:4px;padding:10px 0}
-    .fbtn{padding:7px 18px;border:1px solid transparent;border-radius:100px;background:transparent;color:var(--muted);font-family:'Sora',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .3s}
+    /* ── FILTER BAR ── */
+    .filter-wrap{position:sticky;top:57px;z-index:100;background:var(--filter-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 8%}
+    .filter-bar{display:flex;gap:4px;padding:10px 0;overflow-x:auto}
+    .fbtn{padding:7px 18px;border:1px solid transparent;border-radius:100px;background:transparent;color:var(--muted);font-family:'Sora',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .3s;white-space:nowrap;flex-shrink:0}
     .fbtn:hover{color:var(--text);border-color:var(--border)}
     .fbtn.active{background:var(--card);border-color:var(--border);color:var(--text)}
     .fbtn[data-f="pramitihr"].active{border-color:var(--p);color:var(--p)}
     .fbtn[data-f="lanquill"].active{border-color:var(--l);color:var(--l)}
+    .fbtn[data-f="netanalytiks"].active{border-color:var(--n);color:var(--n)}
 
-    /* BRAND SECTION */
+    /* ── BRAND SECTIONS ── */
     .brand{padding:80px 8%}
     .brand.alt{background:var(--surface)}
     .brand-hdr{display:flex;align-items:center;gap:18px;margin-bottom:64px;padding-bottom:28px;border-bottom:1px solid var(--border)}
     .badge{padding:5px 14px;border-radius:100px;font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase}
     .badge.p{background:var(--p-glow);border:1px solid var(--p);color:var(--p)}
     .badge.l{background:var(--l-glow);border:1px solid var(--l);color:var(--l)}
+    .badge.n{background:var(--n-glow);border:1px solid var(--n);color:var(--n)}
     .brand-hdr h2{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-1px}
     .brand-hdr .sub{color:var(--muted);font-size:.85rem;margin-left:auto;text-align:right;max-width:260px;line-height:1.5}
 
-    /* CATEGORY */
+    /* ── CATEGORY ── */
     .cat{margin-bottom:60px}
     .cat:last-child{margin-bottom:0}
     .cat-hdr{display:flex;align-items:center;gap:14px;margin-bottom:24px}
-    .cat-hdr h3{font-size:.92rem;font-weight:600}
+    .cat-hdr h3{font-size:.92rem;font-weight:600;white-space:nowrap}
     .cat-hdr .line{flex:1;height:1px;background:var(--border)}
-    .cat-hdr .cnt{font-size:.65rem;color:var(--muted);background:var(--card);padding:3px 10px;border-radius:100px;border:1px solid var(--border)}
+    .cat-hdr .cnt{font-size:.65rem;color:var(--muted);background:var(--card);padding:3px 10px;border-radius:100px;border:1px solid var(--border);white-space:nowrap}
 
-    /* GRID */
+    /* ── GRID ── */
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
     .grid.wide{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+    .grid.narrow{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
 
-    /* CARD */
-    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1),box-shadow .4s,border-color .3s;position:relative}
-    .card.p:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(147,51,234,.1);border-color:var(--p)}
-    .card.l:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(14,165,233,.1);border-color:var(--l)}
+    /* ── IMAGE CARD ── */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;position:relative}
+    .card.p:hover{transform:translateY(-5px);box-shadow:var(--card-shadow);border-color:var(--p)}
+    .card.l:hover{transform:translateY(-5px);box-shadow:var(--card-shadow-l);border-color:var(--l)}
+    .card.n:hover{transform:translateY(-5px);box-shadow:var(--card-shadow-n);border-color:var(--n)}
     .img-wrap{overflow:hidden;position:relative}
     .img-wrap img{width:100%;display:block;object-fit:cover;transition:transform .6s cubic-bezier(.23,1,.32,1)}
     .card:hover .img-wrap img{transform:scale(1.04)}
     .r-portrait .img-wrap{aspect-ratio:3/4}
     .r-square .img-wrap{aspect-ratio:1/1}
     .r-land .img-wrap{aspect-ratio:4/3}
+    .r-wide .img-wrap{aspect-ratio:16/9}
     .r-tall .img-wrap{aspect-ratio:9/18}
-    .pages-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);color:var(--muted);font-size:.6rem;letter-spacing:1px;padding:3px 9px;border-radius:100px;border:1px solid var(--border)}
+    .pages-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);color:#ccc;font-size:.6rem;letter-spacing:1px;padding:3px 9px;border-radius:100px;border:1px solid rgba(255,255,255,.1)}
     .card-info{padding:14px 18px 18px}
     .card-tag{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px}
     .card-tag.p{color:var(--p)}
     .card-tag.l{color:var(--l)}
+    .card-tag.n{color:var(--n)}
     .card-title{font-size:.88rem;font-weight:600;line-height:1.4;color:var(--text)}
 
-    /* ABOUT */
+    /* ── VIDEO CARD ── */
+    .video-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .video-card.p:hover{box-shadow:var(--card-shadow);border-color:var(--p)}
+    .video-card.l:hover{box-shadow:var(--card-shadow-l);border-color:var(--l)}
+    .video-card.n:hover{box-shadow:var(--card-shadow-n);border-color:var(--n)}
+    .video-card video{width:100%;display:block;aspect-ratio:16/9;background:#000}
+    .video-info{padding:14px 18px 18px}
+    .video-info .card-title{font-size:.88rem;font-weight:600;line-height:1.4;color:var(--text)}
+
+    /* ── ABOUT ── */
     .about{padding:100px 8%}
     .slabel{font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
     .stitle{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3rem);margin-bottom:56px;letter-spacing:-1px}
@@ -108,24 +178,24 @@
     .about-text strong{color:var(--text)}
     .about-text p+p{margin-top:18px}
     .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
-    .skill{padding:7px 15px;border:1px solid var(--border);border-radius:100px;font-size:.73rem;color:var(--muted);transition:all .3s;cursor:default}
+    .skill{padding:7px 15px;border:1px solid var(--border);border-radius:100px;font-size:.73rem;color:var(--muted);cursor:default}
     .skill:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
     .exp-list{display:flex;flex-direction:column;gap:14px}
-    .exp{padding:22px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:border-color .3s}
+    .exp{padding:22px;background:var(--card);border:1px solid var(--border);border-radius:12px}
     .exp:hover{border-color:var(--accent)}
     .exp .role{font-weight:600;font-size:.92rem;margin-bottom:4px}
     .exp .co{color:var(--accent);font-size:.8rem;margin-bottom:4px}
     .exp .dates{font-size:.7rem;color:var(--muted)}
 
-    /* TOOLS */
+    /* ── TOOLS ── */
     .tools{padding:100px 8%;background:var(--surface)}
     .tools-cats{display:flex;flex-direction:column;gap:36px}
     .tgroup h4{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
     .chips{display:flex;flex-wrap:wrap;gap:9px}
-    .chip{padding:9px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:.8rem;color:var(--muted);transition:all .3s;cursor:default}
+    .chip{padding:9px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:.8rem;color:var(--muted);cursor:default}
     .chip:hover{border-color:var(--gold);color:var(--gold)}
 
-    /* CONTACT */
+    /* ── CONTACT ── */
     .contact{padding:120px 8%;text-align:center;background:radial-gradient(ellipse 50% 60% at 50% 100%,var(--accent-glow) 0%,transparent 70%),var(--bg)}
     .contact .stitle{margin-bottom:14px}
     .contact-sub{color:var(--muted);font-size:.95rem;margin-bottom:44px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.7}
@@ -135,28 +205,28 @@
     .clink.primary{background:var(--accent);border-color:var(--accent);color:#fff}
     .clink.primary:hover{background:#d44a33}
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer{text-align:center;padding:32px;font-size:.7rem;color:var(--muted);border-top:1px solid var(--border)}
 
-    /* LIGHTBOX */
+    /* ── LIGHTBOX (always dark) ── */
     .lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:10000;justify-content:center;align-items:center;padding:40px}
     .lb.on{display:flex}
-    .lb-close{position:fixed;top:20px;right:28px;width:40px;height:40px;background:var(--card);border:1px solid var(--border);border-radius:50%;color:var(--text);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10001;transition:all .2s}
+    .lb-close{position:fixed;top:20px;right:28px;width:40px;height:40px;background:#1a1a26;border:1px solid #2a2a3a;border-radius:50%;color:#e8e6e3;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10001;transition:all .2s}
     .lb-close:hover{background:var(--accent);border-color:var(--accent)}
     .lb-img-wrap{max-width:88vw;max-height:88vh;display:flex;align-items:center}
     .lb-img-wrap img{max-width:100%;max-height:88vh;border-radius:8px;box-shadow:0 0 80px rgba(0,0,0,.6);display:block}
-    .lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:42px;height:42px;background:rgba(26,26,38,.9);border:1px solid var(--border);border-radius:50%;color:var(--text);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10001;transition:all .2s}
+    .lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:42px;height:42px;background:rgba(26,26,38,.9);border:1px solid #2a2a3a;border-radius:50%;color:#e8e6e3;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10001;transition:all .2s}
     .lb-nav:hover{background:var(--accent);border-color:var(--accent)}
     .lb-nav.hide{display:none}
     #lb-prev{left:16px}
     #lb-next{right:16px}
-    .lb-counter{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);font-size:.72rem;color:var(--muted);background:var(--card);padding:5px 14px;border-radius:100px;border:1px solid var(--border)}
+    .lb-counter{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);font-size:.72rem;color:#8a8a9a;background:#1a1a26;padding:5px 14px;border-radius:100px;border:1px solid #2a2a3a}
 
-    /* ANIMATIONS */
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
     @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media(max-width:900px){.about-grid{grid-template-columns:1fr}.brand-hdr .sub{display:none}}
     @media(max-width:640px){.hero-stats{gap:24px}.grid{grid-template-columns:1fr 1fr}.brand,.about,.tools,.contact{padding:60px 5%}.filter-wrap{padding:0 5%}nav{padding:16px 5%}}
     @media(max-width:440px){.grid{grid-template-columns:1fr}}
@@ -164,13 +234,21 @@
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav id="nav">
   <a href="#" class="nav-logo">Juli <span>Kumari</span></a>
-  <a href="mailto:guptajuli786@gmail.com" class="nav-cta">Hire Me</a>
+  <div class="nav-right">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">
+      <!-- Moon: shown in dark mode -->
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <!-- Sun: shown in light mode -->
+      <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <a href="mailto:guptajuli786@gmail.com" class="nav-cta">Hire Me</a>
+  </div>
 </nav>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <div class="hero">
   <p class="hero-tag">B2B Marketing Portfolio</p>
   <h1>Juli <span>Kumari</span></h1>
@@ -188,16 +266,17 @@
   <div class="scroll-hint"><span>Scroll</span><div class="line"></div></div>
 </div>
 
-<!-- FILTER -->
+<!-- ── FILTER ── -->
 <div class="filter-wrap" id="work">
   <div class="filter-bar">
     <button class="fbtn active" data-f="all" onclick="fw('all')">All Work</button>
     <button class="fbtn" data-f="pramitihr" onclick="fw('pramitihr')">PramitiHR.ai</button>
     <button class="fbtn" data-f="lanquill" onclick="fw('lanquill')">Lanquill</button>
+    <button class="fbtn" data-f="netanalytiks" onclick="fw('netanalytiks')">NetAnalytiks</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════ PRAMITIHR ═══════════════════════════════════════ -->
+<!-- ══════════════════════ PRAMITIHR ══════════════════════ -->
 <section class="brand alt" data-brand="pramitihr">
   <div class="brand-hdr">
     <span class="badge p">HRTech</span>
@@ -205,209 +284,263 @@
     <p class="sub">AI Hiring Copilot for enterprises, agencies &amp; institutes</p>
   </div>
 
-  <!-- FLYERS -->
+  <!-- Product Video -->
   <div class="cat">
-    <div class="cat-hdr"><h3>Campaign Flyers</h3><div class="line"></div><span class="cnt">6 pieces</span></div>
-    <div class="grid">
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/1.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/1.png" alt="AI Hiring Co-Pilot Flyer Mobile" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag p">Flyer · Enterprise</p><p class="card-title">Your AI Hiring Co-Pilot — Mobile Mockup</p></div>
+    <div class="cat-hdr"><h3>Product Video</h3><div class="line"></div><span class="cnt">1 piece</span></div>
+    <div class="grid wide">
+      <div class="video-card p">
+        <video controls preload="metadata">
+          <source src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Retail%20Feature%20Video%20V1.mp4" type="video/mp4">
+        </video>
+        <div class="video-info">
+          <p class="card-tag p">Product · Feature Demo</p>
+          <p class="card-title">PramitiHR Retail Feature Video V1</p>
+        </div>
       </div>
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/2.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/2.png" alt="AI Hiring Co-Pilot Flyer Desktop" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag p">Flyer · Enterprise</p><p class="card-title">Your AI Hiring Co-Pilot — Desktop Mockup</p></div>
-      </div>
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/3.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/3.png" alt="Screen Faster Place Smarter" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag p">Flyer · Agencies</p><p class="card-title">Screen Faster. Place Smarter. Win More Clients.</p></div>
-      </div>
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/4.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/4.png" alt="AI-Powered Recruitment Platform" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag p">Flyer · Enterprise</p><p class="card-title">AI-Powered Recruitment Platform for Enterprises</p></div>
-      </div>
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/5.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/5.png" alt="Automate Analyze Accelerate" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag p">Flyer · SmartScreen</p><p class="card-title">Automate, Analyze, Accelerate Hiring with Confidence</p></div>
-      </div>
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/6.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/6.png" alt="Smart Hiring" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag p">Flyer · Branding</p><p class="card-title">Smart Hiring — AI-Powered Recruitment Partner</p></div>
-      </div>
-
     </div>
   </div>
 
-  <!-- BROCHURES -->
+  <!-- Campaign Flyers -->
+  <div class="cat">
+    <div class="cat-hdr"><h3>Campaign Flyers</h3><div class="line"></div><span class="cnt">4 pieces</span></div>
+    <div class="grid">
+      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/1.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/1.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag p">Flyer · Enterprise</p><p class="card-title">Your AI Hiring Co-Pilot — Mobile Mockup</p></div>
+      </div>
+      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/3.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/3.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag p">Flyer · Agencies</p><p class="card-title">Screen Faster. Place Smarter. Win More Clients.</p></div>
+      </div>
+      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/4.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/4.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag p">Flyer · Enterprise</p><p class="card-title">AI-Powered Recruitment Platform for Enterprises</p></div>
+      </div>
+      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/6.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Flyer/6.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag p">Flyer · Branding</p><p class="card-title">Smart Hiring — AI-Powered Recruitment Partner</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brochures -->
   <div class="cat">
     <div class="cat-hdr"><h3>Brochures &amp; Print</h3><div class="line"></div><span class="cnt">3 pieces</span></div>
     <div class="grid wide">
-
       <div class="card p r-land" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Institute%20Trifold%20Brochure/1.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Institute%20Trifold%20Brochure/2.png"]' onclick="ol(this)">
-        <div class="img-wrap">
-          <img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Institute%20Trifold%20Brochure/1.png" alt="PramitiHR Trifold Brochure" loading="lazy">
-          <span class="pages-badge">2 pages</span>
-        </div>
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20Institute%20Trifold%20Brochure/1.png" alt="" loading="lazy"><span class="pages-badge">2 pages</span></div>
         <div class="card-info"><p class="card-tag p">Trifold Brochure · Enterprise</p><p class="card-title">AI-Driven Hiring Copilot — General Brochure</p></div>
       </div>
-
       <div class="card p r-land" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Institute%20Trifold%20Brochure%20V2/1.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Institute%20Trifold%20Brochure%20V2/2.png"]' onclick="ol(this)">
-        <div class="img-wrap">
-          <img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Institute%20Trifold%20Brochure%20V2/1.png" alt="Smart Launch for Institutes Trifold" loading="lazy">
-          <span class="pages-badge">2 pages</span>
-        </div>
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Institute%20Trifold%20Brochure%20V2/1.png" alt="" loading="lazy"><span class="pages-badge">2 pages</span></div>
         <div class="card-info"><p class="card-tag p">Trifold Brochure · Institutes</p><p class="card-title">Smart Launch for Institutes — Placement Readiness</p></div>
       </div>
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20A4%20Brochure%20%281%29.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20A4%20Brochure%20%282%29.png"]' onclick="ol(this)">
-        <div class="img-wrap">
-          <img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20A4%20Brochure%20%281%29.png" alt="PramitiHR A4 Brochure" loading="lazy">
-          <span class="pages-badge">2 pages</span>
-        </div>
+      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20A4%20Brochure.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR%20A4%20Brochure.png" alt="" loading="lazy"></div>
         <div class="card-info"><p class="card-tag p">A4 Brochure · Enterprise</p><p class="card-title">AI Driven Hiring Copilot — A4 Format</p></div>
       </div>
-
     </div>
   </div>
 
-  <!-- WEBINARS -->
+  <!-- Infographic Series -->
+  <div class="cat">
+    <div class="cat-hdr"><h3>Infographic Series</h3><div class="line"></div><span class="cnt">6 slides</span></div>
+    <div class="grid narrow">
+      <div class="card p r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Efficiency%20vs%20%20Candidate%20Experience/1.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Efficiency%20vs%20%20Candidate%20Experience/2.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Efficiency%20vs%20%20Candidate%20Experience/3.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Efficiency%20vs%20%20Candidate%20Experience/4.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Efficiency%20vs%20%20Candidate%20Experience/5.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Efficiency%20vs%20%20Candidate%20Experience/6.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Efficiency%20vs%20%20Candidate%20Experience/1.png" alt="" loading="lazy"><span class="pages-badge">6 slides</span></div>
+        <div class="card-info"><p class="card-tag p">Carousel · LinkedIn</p><p class="card-title">Efficiency vs Candidate Experience</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Webinars -->
   <div class="cat">
     <div class="cat-hdr"><h3>Webinar Creatives</h3><div class="line"></div><span class="cnt">2 pieces</span></div>
     <div class="grid">
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR-%20Hiring%20Copilot%20Live%20Webinar%20%20%281%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR-%20Hiring%20Copilot%20Live%20Webinar%20%20%281%29.png" alt="Hiring Copilot Live Webinar" loading="lazy"></div>
+      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR-%20Hiring%20Copilot%20Live%20Webinar.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/PramitiHR-%20Hiring%20Copilot%20Live%20Webinar.png" alt="" loading="lazy"></div>
         <div class="card-info"><p class="card-tag p">Webinar · Sept 2025</p><p class="card-title">Disrupting Talent Acquisition through Gen AI</p></div>
       </div>
-
-      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar%20From%20Classroom%20to%20Corporate%20%20%281%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar%20From%20Classroom%20to%20Corporate%20%20%281%29.png" alt="From Classroom to Corporate Webinar" loading="lazy"></div>
+      <div class="card p r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar%20From%20Classroom%20to%20Corporate.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar%20From%20Classroom%20to%20Corporate.png" alt="" loading="lazy"></div>
         <div class="card-info"><p class="card-tag p">Webinar · Feb 2026</p><p class="card-title">From Classroom to Corporate</p></div>
       </div>
-
     </div>
   </div>
 
-  <!-- BLOG GRAPHICS -->
+  <!-- Blog & Social -->
   <div class="cat">
-    <div class="cat-hdr"><h3>Blog &amp; Social Graphics</h3><div class="line"></div><span class="cnt">2 pieces</span></div>
+    <div class="cat-hdr"><h3>Blog &amp; Social Graphics</h3><div class="line"></div><span class="cnt">3 pieces</span></div>
     <div class="grid">
-
-      <div class="card p r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/AI%20Interviewer%20vs%20Human%20Screening%20Blog%20post%20%281%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/AI%20Interviewer%20vs%20Human%20Screening%20Blog%20post%20%281%29.png" alt="AI Interviewer vs Human Screening" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag p">Blog Graphic · PramitiHR</p><p class="card-title">AI Interviewer vs Human Screening</p></div>
+      <div class="card p r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/AI%20Interviewer%20vs%20Human%20Screening%20Blog%20post.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/AI%20Interviewer%20vs%20Human%20Screening%20Blog%20post.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag p">Blog Graphic</p><p class="card-title">AI Interviewer vs Human Screening</p></div>
       </div>
-
-      <div class="card p r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20Generative%20AI%20Solves%20the%20Recruiter%20Burnout%20Problem%20%281%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20Generative%20AI%20Solves%20the%20Recruiter%20Burnout%20Problem%20%281%29.png" alt="Recruiter Burnout Blog Post" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag p">Blog Graphic · PramitiHR</p><p class="card-title">How Generative AI Solves the Recruiter Burnout Problem</p></div>
+      <div class="card p r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20Generative%20AI%20Solves%20the%20Recruiter%20Burnout%20Problem.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20Generative%20AI%20Solves%20the%20Recruiter%20Burnout%20Problem.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag p">Blog Graphic</p><p class="card-title">How Generative AI Solves the Recruiter Burnout Problem</p></div>
       </div>
-
+      <div class="card p r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Top%205%20Real-World%20Problems%20Solved%20by%20Generative%20AI%20in%20Hiring%20blog%20post%20%281%29.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Top%205%20Real-World%20Problems%20Solved%20by%20Generative%20AI%20in%20Hiring%20blog%20post%20%281%29.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag p">Blog Graphic</p><p class="card-title">Top 5 Real-World Problems Solved by Generative AI in Hiring</p></div>
+      </div>
     </div>
   </div>
 
-  <!-- EVENT & OOH -->
+  <!-- Event & OOH -->
   <div class="cat">
     <div class="cat-hdr"><h3>Event &amp; Out-of-Home</h3><div class="line"></div><span class="cnt">3 pieces</span></div>
-    <div class="grid">
-
+    <div class="grid narrow">
       <div class="card p r-tall" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Copy%20of%20Standee%203%20%2836%20x%2072%20in%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Copy%20of%20Standee%203%20%2836%20x%2072%20in%29.png" alt="Standee Generative AI" loading="lazy"></div>
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Copy%20of%20Standee%203%20%2836%20x%2072%20in%29.png" alt="" loading="lazy"></div>
         <div class="card-info"><p class="card-tag p">Standee · Event OOH</p><p class="card-title">Revolutionising Recruitment with Generative AI</p></div>
       </div>
-
       <div class="card p r-tall" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Copy%20of%20Standee1%20%2836%20x%2072%20in%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Copy%20of%20Standee1%20%2836%20x%2072%20in%29.png" alt="Standee Hiring Copilot" loading="lazy"></div>
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Copy%20of%20Standee1%20%2836%20x%2072%20in%29.png" alt="" loading="lazy"></div>
         <div class="card-info"><p class="card-tag p">Standee · Event OOH</p><p class="card-title">AI-Driven Hiring Copilot — Hire Better. Faster. Smarter.</p></div>
       </div>
-
       <div class="card p r-tall" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/pramitihr.ai%20Photo%20Booth%20Frame%20%282%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/pramitihr.ai%20Photo%20Booth%20Frame%20%282%29.png" alt="PramitiHR Photo Booth Frame" loading="lazy"></div>
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/pramitihr.ai%20Photo%20Booth%20Frame%20%282%29.png" alt="" loading="lazy"></div>
         <div class="card-info"><p class="card-tag p">Photo Booth · Event</p><p class="card-title">pramitihr.ai — Social Photo Booth Frame</p></div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════ LANQUILL ═══════════════════════════════════════ -->
+<!-- ══════════════════════ LANQUILL ══════════════════════ -->
 <section class="brand" data-brand="lanquill">
   <div class="brand-hdr">
     <span class="badge l">EdTech</span>
     <h2>Lanquill</h2>
-    <p class="sub">AI-Powered English Language Lab for colleges &amp; nursing institutes</p>
+    <p class="sub">AI English Language Lab for colleges &amp; nursing institutes</p>
   </div>
 
-  <!-- BROCHURES -->
+  <!-- Product Video -->
   <div class="cat">
-    <div class="cat-hdr"><h3>Brochures &amp; Print</h3><div class="line"></div><span class="cnt">3 pieces</span></div>
+    <div class="cat-hdr"><h3>Product Video</h3><div class="line"></div><span class="cnt">1 piece</span></div>
     <div class="grid wide">
-
-      <div class="card l r-land" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure%20V5/1.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure%20V5/2.png"]' onclick="ol(this)">
-        <div class="img-wrap">
-          <img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure%20V5/1.png" alt="Lanquill General Brochure V5" loading="lazy">
-          <span class="pages-badge">2 pages</span>
+      <div class="video-card l">
+        <video controls preload="metadata">
+          <source src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Swayam%20Plus%20Advanced%20Certification%20in%20Professional%20and%20Communicative%20English%20Skills%20V2.mp4" type="video/mp4">
+        </video>
+        <div class="video-info">
+          <p class="card-tag l">Product · Feature Demo</p>
+          <p class="card-title">Swayam Plus — Advanced Certification in Professional &amp; Communicative English</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UI / Landing Page Design -->
+  <div class="cat">
+    <div class="cat-hdr"><h3>UI / Landing Page Design</h3><div class="line"></div><span class="cnt">2 pieces</span></div>
+    <div class="grid wide">
+      <div class="card l r-wide" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20Landing%20Page%20UI%20Design.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20Landing%20Page%20UI%20Design.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag l">UI Design · Web</p><p class="card-title">Lanquill Landing Page Design</p></div>
+      </div>
+      <div class="card l r-wide" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20Nursing%20Landing%20Page%20UI%20Design.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20Nursing%20Landing%20Page%20UI%20Design.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag l">UI Design · Nursing</p><p class="card-title">Nursing Institute Landing Page Design</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brochures -->
+  <div class="cat">
+    <div class="cat-hdr"><h3>Brochures &amp; Print</h3><div class="line"></div><span class="cnt">2 pieces</span></div>
+    <div class="grid wide">
+      <div class="card l r-land" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure%20V5/1.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure%20V5/2.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure%20V5/1.png" alt="" loading="lazy"><span class="pages-badge">2 pages</span></div>
         <div class="card-info"><p class="card-tag l">Trifold Brochure · General</p><p class="card-title">Transform English Learning with AI — V5</p></div>
       </div>
-
-      <div class="card l r-land" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure-%20iGroup/1.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure-%20iGroup/2.png"]' onclick="ol(this)">
-        <div class="img-wrap">
-          <img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Lanquill%20brochure-%20iGroup/1.png" alt="Lanquill iGroup Partner Brochure" loading="lazy">
-          <span class="pages-badge">2 pages</span>
-        </div>
-        <div class="card-info"><p class="card-tag l">Trifold Brochure · Partner Edition</p><p class="card-title">Transform English Learning with AI — iGroup Partner</p></div>
-      </div>
-
       <div class="card l r-land" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Trifold%20Brochure%20for%20Lanquill%20Nursing%20V2/1.png","https://raw.githubusercontent.com/julikumari23/portfolio/main/Trifold%20Brochure%20for%20Lanquill%20Nursing%20V2/2.png"]' onclick="ol(this)">
-        <div class="img-wrap">
-          <img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Trifold%20Brochure%20for%20Lanquill%20Nursing%20V2/1.png" alt="Lanquill Nursing Brochure" loading="lazy">
-          <span class="pages-badge">2 pages</span>
-        </div>
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Trifold%20Brochure%20for%20Lanquill%20Nursing%20V2/1.png" alt="" loading="lazy"><span class="pages-badge">2 pages</span></div>
         <div class="card-info"><p class="card-tag l">Trifold Brochure · Nursing</p><p class="card-title">OET English for Nursing Professionals</p></div>
       </div>
-
     </div>
   </div>
 
-  <!-- WEBINARS -->
+  <!-- Webinars -->
   <div class="cat">
-    <div class="cat-hdr"><h3>Webinar Creatives</h3><div class="line"></div><span class="cnt">2 pieces</span></div>
+    <div class="cat-hdr"><h3>Webinar Creatives</h3><div class="line"></div><span class="cnt">4 pieces</span></div>
     <div class="grid">
-
       <div class="card l r-land" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar-%20How%20to%20Track%20and%20Improve%20Student%20Placement%20Readiness%20Before%20Placement%20Drives.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar-%20How%20to%20Track%20and%20Improve%20Student%20Placement%20Readiness%20Before%20Placement%20Drives.png" alt="Student Placement Readiness Webinar" loading="lazy"></div>
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar-%20How%20to%20Track%20and%20Improve%20Student%20Placement%20Readiness%20Before%20Placement%20Drives.png" alt="" loading="lazy"></div>
         <div class="card-info"><p class="card-tag l">Webinar · April 2026</p><p class="card-title">How to Track &amp; Improve Student Placement Readiness</p></div>
       </div>
-
       <div class="card l r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20Nursing%20Institutes%20Can%20Improve%20OETIELTS%20Pass%20Rates%20%281%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20Nursing%20Institutes%20Can%20Improve%20OETIELTS%20Pass%20Rates%20%281%29.png" alt="OET IELTS Webinar" loading="lazy"></div>
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20Nursing%20Institutes%20Can%20Improve%20OETIELTS%20Pass%20Rates%20%281%29.png" alt="" loading="lazy"></div>
         <div class="card-info"><p class="card-tag l">Webinar · March 2026</p><p class="card-title">How Nursing Institutes Can Improve OET/IELTS Pass Rates</p></div>
       </div>
-
+      <div class="card l r-portrait" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20to%20Boost%20Placement%20Outcomes-%20Lanquill%20Webinar%2019th%20June.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/How%20to%20Boost%20Placement%20Outcomes-%20Lanquill%20Webinar%2019th%20June.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag l">Webinar · June 2025</p><p class="card-title">How to Boost Placement Outcomes</p></div>
+      </div>
+      <div class="card l r-land" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar%20Online%20Workshop%20Banner.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Webinar%20Online%20Workshop%20Banner.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag l">Webinar · Online</p><p class="card-title">Online Workshop Banner</p></div>
+      </div>
     </div>
   </div>
 
-  <!-- BLOG GRAPHICS -->
+  <!-- Blog -->
   <div class="cat">
     <div class="cat-hdr"><h3>Blog &amp; Social Graphics</h3><div class="line"></div><span class="cnt">1 piece</span></div>
-    <div class="grid">
-
-      <div class="card l r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Blog%20Why%20Every%20College%20Needs%20an%20AI%20Language%20Lab%20in%202026%20%281%29.png"]' onclick="ol(this)">
-        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Blog%20Why%20Every%20College%20Needs%20an%20AI%20Language%20Lab%20in%202026%20%281%29.png" alt="Why Every College Needs an AI Language Lab" loading="lazy"></div>
-        <div class="card-info"><p class="card-tag l">Blog Graphic · Lanquill</p><p class="card-title">Why Every College Needs an AI Language Lab in 2026</p></div>
+    <div class="grid narrow">
+      <div class="card l r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/Blog%20Why%20Every%20College%20Needs%20an%20AI%20Language%20Lab%20in%202026.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/Blog%20Why%20Every%20College%20Needs%20an%20AI%20Language%20Lab%20in%202026.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag l">Blog Graphic</p><p class="card-title">Why Every College Needs an AI Language Lab in 2026</p></div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ══════════════════════ NETANALYTIKS ══════════════════════ -->
+<section class="brand alt" data-brand="netanalytiks">
+  <div class="brand-hdr">
+    <span class="badge n">IT Services</span>
+    <h2>NetAnalytiks</h2>
+    <p class="sub">IT Staffing &amp; Services — B2B brand presence &amp; demand gen</p>
+  </div>
+
+  <!-- Brand Video -->
+  <div class="cat">
+    <div class="cat-hdr"><h3>Brand Video</h3><div class="line"></div><span class="cnt">1 piece</span></div>
+    <div class="grid wide">
+      <div class="video-card n">
+        <video controls preload="metadata">
+          <source src="https://raw.githubusercontent.com/julikumari23/portfolio/main/NetAnalytiks%20Video%20Staff%20Augmentation.mp4" type="video/mp4">
+        </video>
+        <div class="video-info">
+          <p class="card-tag n">Brand Video · Services</p>
+          <p class="card-title">Staff Augmentation — Brand Explainer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social Media -->
+  <div class="cat">
+    <div class="cat-hdr"><h3>Social Media</h3><div class="line"></div><span class="cnt">3 pieces</span></div>
+    <div class="grid narrow">
+      <div class="card n r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/NetAnalytiks%20Happy%20Halloween%20Flyer.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/NetAnalytiks%20Happy%20Halloween%20Flyer.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag n">Social · Festive</p><p class="card-title">Happy Halloween — Seasonal Greeting</p></div>
+      </div>
+      <div class="card n r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/NetAnalytiks%20Mothers%20Happy%20Mothers%20day%20Greeting%20Instagram%20Post.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/NetAnalytiks%20Mothers%20Happy%20Mothers%20day%20Greeting%20Instagram%20Post.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag n">Social · Festive</p><p class="card-title">Happy Mother's Day — Instagram Greeting</p></div>
+      </div>
+      <div class="card n r-square" data-imgs='["https://raw.githubusercontent.com/julikumari23/portfolio/main/NetAnalytiks%20Ugadi%20Instagram%20Post.png"]' onclick="ol(this)">
+        <div class="img-wrap"><img src="https://raw.githubusercontent.com/julikumari23/portfolio/main/NetAnalytiks%20Ugadi%20Instagram%20Post.png" alt="" loading="lazy"></div>
+        <div class="card-info"><p class="card-tag n">Social · Festive</p><p class="card-title">Happy Ugadi — Instagram Post</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
 <section class="about">
   <p class="slabel">About</p>
   <h2 class="stitle">Background &amp; Experience</h2>
@@ -465,7 +598,7 @@
   </div>
 </section>
 
-<!-- TOOLS -->
+<!-- ── TOOLS ── -->
 <section class="tools">
   <p class="slabel">Toolkit</p>
   <h2 class="stitle">Tools &amp; Technologies</h2>
@@ -473,79 +606,57 @@
     <div class="tgroup">
       <h4>Paid Media &amp; Analytics</h4>
       <div class="chips">
-        <span class="chip">Google Ads</span>
-        <span class="chip">LinkedIn Ads Manager</span>
-        <span class="chip">Meta Business Suite</span>
-        <span class="chip">GA4</span>
-        <span class="chip">Google Tag Manager</span>
-        <span class="chip">Google Search Console</span>
+        <span class="chip">Google Ads</span><span class="chip">LinkedIn Ads Manager</span><span class="chip">Meta Business Suite</span><span class="chip">GA4</span><span class="chip">Google Tag Manager</span><span class="chip">Google Search Console</span>
       </div>
     </div>
     <div class="tgroup">
       <h4>SEO &amp; GEO</h4>
       <div class="chips">
-        <span class="chip">SEMrush</span>
-        <span class="chip">Ahrefs</span>
-        <span class="chip">Moz</span>
-        <span class="chip">Screaming Frog</span>
-        <span class="chip">Google Keyword Planner</span>
-        <span class="chip">GEO — AI Search Visibility</span>
+        <span class="chip">SEMrush</span><span class="chip">Ahrefs</span><span class="chip">Moz</span><span class="chip">Screaming Frog</span><span class="chip">Google Keyword Planner</span><span class="chip">GEO — AI Search Visibility</span>
       </div>
     </div>
     <div class="tgroup">
       <h4>CRM &amp; Automation</h4>
       <div class="chips">
-        <span class="chip">HubSpot</span>
-        <span class="chip">Brevo</span>
-        <span class="chip">Mailchimp</span>
+        <span class="chip">HubSpot</span><span class="chip">Brevo</span><span class="chip">Mailchimp</span>
       </div>
     </div>
     <div class="tgroup">
       <h4>Design &amp; Content</h4>
       <div class="chips">
-        <span class="chip">Canva</span>
-        <span class="chip">Adobe Photoshop</span>
-        <span class="chip">Adobe Illustrator</span>
-        <span class="chip">Adobe Express</span>
-        <span class="chip">Figma</span>
-        <span class="chip">Lumen5</span>
-        <span class="chip">Tome AI</span>
+        <span class="chip">Canva</span><span class="chip">Adobe Photoshop</span><span class="chip">Adobe Illustrator</span><span class="chip">Adobe Express</span><span class="chip">Figma</span><span class="chip">Lumen5</span><span class="chip">Tome AI</span>
       </div>
     </div>
     <div class="tgroup">
       <h4>AI Workflow</h4>
       <div class="chips">
-        <span class="chip">Claude by Anthropic</span>
-        <span class="chip">ChatGPT</span>
-        <span class="chip">Gemini</span>
-        <span class="chip">LinkedIn Sales Navigator</span>
+        <span class="chip">Claude by Anthropic</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip">LinkedIn Sales Navigator</span>
       </div>
     </div>
     <div class="tgroup">
       <h4>Web &amp; CMS</h4>
       <div class="chips">
-        <span class="chip">WordPress</span>
-        <span class="chip">HTML / CSS</span>
+        <span class="chip">WordPress</span><span class="chip">HTML / CSS</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ── CONTACT ── -->
 <section class="contact">
   <p class="slabel">Get In Touch</p>
   <h2 class="stitle">Let's Work Together</h2>
   <p class="contact-sub">Open to B2B marketing roles, consulting, and brand collaborations.</p>
   <div class="clinks">
     <a href="mailto:guptajuli786@gmail.com" class="clink primary">guptajuli786@gmail.com</a>
-    <a href="https://linkedin.com/in/juli-kumari23" target="_blank" class="clink">LinkedIn</a>
+    <a href="https://linkedin.com/in/juli-kumari23" target="_blank" rel="noopener" class="clink">LinkedIn</a>
     <a href="tel:+918757373344" class="clink">+91 87573 73344</a>
   </div>
 </section>
 
 <footer>&copy; 2026 Juli Kumari. All rights reserved.</footer>
 
-<!-- LIGHTBOX -->
+<!-- ── LIGHTBOX ── -->
 <div class="lb" id="lb">
   <button class="lb-close" onclick="cl()">&#10005;</button>
   <button class="lb-nav hide" id="lb-prev" onclick="ln(-1)">&#8592;</button>
@@ -555,23 +666,36 @@
 </div>
 
 <script>
-  // Nav scroll
-  window.addEventListener('scroll', () => {
+  // ── Theme ──
+  (function() {
+    var saved = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+  })();
+
+  function toggleTheme() {
+    var html = document.documentElement;
+    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+
+  // ── Nav scroll ──
+  window.addEventListener('scroll', function() {
     document.getElementById('nav').classList.toggle('scrolled', scrollY > 50);
   });
 
-  // Filter
+  // ── Filter ──
   function fw(brand) {
-    document.querySelectorAll('.brand').forEach(s => {
+    document.querySelectorAll('.brand').forEach(function(s) {
       s.style.display = (brand === 'all' || s.dataset.brand === brand) ? '' : 'none';
     });
-    document.querySelectorAll('.fbtn').forEach(b => {
+    document.querySelectorAll('.fbtn').forEach(function(b) {
       b.classList.toggle('active', b.dataset.f === brand);
     });
   }
 
-  // Lightbox
-  let imgs = [], idx = 0;
+  // ── Lightbox ──
+  var imgs = [], idx = 0;
 
   function ol(card) {
     imgs = JSON.parse(card.dataset.imgs);
@@ -585,32 +709,32 @@
     document.getElementById('lb-img').src = imgs[idx];
     document.getElementById('lb-prev').classList.toggle('hide', idx === 0);
     document.getElementById('lb-next').classList.toggle('hide', idx === imgs.length - 1);
-    const ctr = document.getElementById('lb-cnt');
-    if (imgs.length > 1) { ctr.style.display = ''; ctr.textContent = (idx+1) + ' / ' + imgs.length; }
+    var ctr = document.getElementById('lb-cnt');
+    if (imgs.length > 1) { ctr.style.display = ''; ctr.textContent = (idx + 1) + ' / ' + imgs.length; }
     else { ctr.style.display = 'none'; }
   }
 
-  function ln(d) { idx = Math.max(0, Math.min(imgs.length-1, idx+d)); upd(); }
+  function ln(d) { idx = Math.max(0, Math.min(imgs.length - 1, idx + d)); upd(); }
 
   function cl() {
     document.getElementById('lb').classList.remove('on');
     document.body.style.overflow = '';
   }
 
-  document.getElementById('lb').addEventListener('click', e => {
-    if (e.target === document.getElementById('lb')) cl();
+  document.getElementById('lb').addEventListener('click', function(e) {
+    if (e.target === this) cl();
   });
 
-  document.addEventListener('keydown', e => {
+  document.addEventListener('keydown', function(e) {
     if (!document.getElementById('lb').classList.contains('on')) return;
     if (e.key === 'Escape') cl();
     if (e.key === 'ArrowLeft') ln(-1);
     if (e.key === 'ArrowRight') ln(1);
   });
 
-  // Scroll reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(en => {
+  // ── Scroll reveal ──
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(en) {
       if (en.isIntersecting) {
         en.target.style.opacity = '1';
         en.target.style.transform = 'translateY(0)';
@@ -619,10 +743,10 @@
     });
   }, { threshold: 0.07 });
 
-  document.querySelectorAll('.card, .exp, .chip').forEach(el => {
+  document.querySelectorAll('.card, .video-card, .exp, .chip').forEach(function(el) {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    el.style.transition = 'opacity .5s ease, transform .5s ease, background-color .35s ease, border-color .35s ease, box-shadow .4s';
     obs.observe(el);
   });
 </script>
