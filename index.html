@@ -91,9 +91,10 @@
     .nav-cta:hover{background:#d44a33}
 
     /* ── HERO ── */
-    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 8% 100px;position:relative;background:radial-gradient(ellipse 60% 50% at 70% 20%,var(--accent-glow) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(212,168,83,.06) 0%,transparent 60%),var(--bg)}
+    .hero{min-height:100vh;display:flex;align-items:center;padding:120px 8% 100px;position:relative;background:radial-gradient(ellipse 60% 50% at 70% 20%,var(--accent-glow) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(212,168,83,.06) 0%,transparent 60%),var(--bg)}
+    .hero-inner{display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center;width:100%}
     .hero-tag{font-size:.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:24px;opacity:0;animation:fadeUp .8s ease forwards .2s}
-    .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(3rem,8vw,7rem);line-height:1.05;letter-spacing:-2px;margin-bottom:28px;opacity:0;animation:fadeUp .8s ease forwards .4s}
+    .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(3rem,6vw,7rem);line-height:1.05;letter-spacing:-2px;margin-bottom:28px;opacity:0;animation:fadeUp .8s ease forwards .4s}
     .hero h1 span{color:var(--accent)}
     .hero-sub{font-size:clamp(.95rem,1.8vw,1.18rem);color:var(--muted);max-width:600px;line-height:1.75;opacity:0;animation:fadeUp .8s ease forwards .6s}
     .hero-stats{display:flex;gap:48px;margin-top:56px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease forwards .8s}
@@ -104,8 +105,23 @@
     .btn-p:hover{background:#d44a33}
     .btn-g{padding:13px 30px;border:1px solid var(--border);color:var(--text);border-radius:100px;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:600;text-decoration:none;transition:all .3s}
     .btn-g:hover{border-color:var(--accent);color:var(--accent)}
+    /* Hero photo */
+    .hero-photo-wrap{opacity:0;animation:fadeUp .8s ease forwards .5s;flex-shrink:0}
+    .hero-photo{
+      width:320px;height:380px;
+      object-fit:cover;object-position:center top;
+      border-radius:180px 180px 140px 140px;
+      border:3px solid var(--border);
+      display:block;
+      filter:grayscale(8%);
+      transition:border-color .3s,filter .3s;
+      box-shadow:0 24px 60px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.04);
+    }
+    .hero-photo-wrap:hover .hero-photo{border-color:var(--accent);filter:grayscale(0%)}
+    [data-theme="light"] .hero-photo{box-shadow:0 24px 60px rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.04)}
     .scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:.62rem;letter-spacing:3px;text-transform:uppercase;animation:bounce 2s infinite}
     .scroll-hint .line{width:1px;height:36px;background:linear-gradient(to bottom,var(--accent),transparent)}
+    @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-photo-wrap{display:none}}
 
     /* ── FILTER BAR ── */
     .filter-wrap{position:sticky;top:57px;z-index:100;background:var(--filter-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 8%}
@@ -255,18 +271,25 @@
 
 <!-- ── HERO ── -->
 <div class="hero">
-  <p class="hero-tag">B2B Marketing Portfolio</p>
-  <h1>Juli <span>Kumari</span></h1>
-  <p class="hero-sub">B2B Marketing Manager — 4+ years driving pipeline, performance marketing, and full-funnel growth across SaaS, HRTech, IT Services &amp; EdTech.</p>
-  <div class="hero-stats">
-    <div class="stat"><h3>70%</h3><p>Inbound Lead Growth</p></div>
-    <div class="stat"><h3>~300%</h3><p>Campaign ROI</p></div>
-    <div class="stat"><h3>560K+</h3><p>Impressions Driven</p></div>
-    <div class="stat"><h3>4+</h3><p>Years Experience</p></div>
-  </div>
-  <div class="hero-actions">
-    <a href="#work" class="btn-p">View My Work</a>
-    <a href="mailto:guptajuli786@gmail.com" class="btn-g">Get In Touch</a>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-tag">B2B Marketing Portfolio</p>
+      <h1>Juli <span>Kumari</span></h1>
+      <p class="hero-sub">B2B Marketing Manager — 4+ years driving pipeline, performance marketing, and full-funnel growth across SaaS, HRTech, IT Services &amp; EdTech.</p>
+      <div class="hero-stats">
+        <div class="stat"><h3>70%</h3><p>Inbound Lead Growth</p></div>
+        <div class="stat"><h3>~300%</h3><p>Campaign ROI</p></div>
+        <div class="stat"><h3>560K+</h3><p>Impressions Driven</p></div>
+        <div class="stat"><h3>4+</h3><p>Years Experience</p></div>
+      </div>
+      <div class="hero-actions">
+        <a href="#work" class="btn-p">View My Work</a>
+        <a href="mailto:guptajuli786@gmail.com" class="btn-g">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="https://raw.githubusercontent.com/julikumari23/portfolio/main/juli-profile.jpg" alt="Juli Kumari">
+    </div>
   </div>
   <div class="scroll-hint"><span>Scroll</span><div class="line"></div></div>
 </div>
