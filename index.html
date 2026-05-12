@@ -67,8 +67,10 @@
     /* ── NAV ── */
     nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 8%;display:flex;justify-content:space-between;align-items:center;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s, background-color .35s}
     nav.scrolled{border-bottom-color:var(--border)}
-    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);text-decoration:none;transition:color .35s}
+    .nav-logo{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);text-decoration:none;transition:color .35s;display:flex;align-items:center;gap:10px}
     .nav-logo span{color:var(--accent)}
+    .nav-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border);transition:border-color .3s,transform .3s;flex-shrink:0}
+    .nav-logo:hover .nav-avatar{border-color:var(--accent);transform:scale(1.05)}
     .nav-right{display:flex;align-items:center;gap:12px}
 
     /* Theme Toggle */
@@ -236,7 +238,10 @@
 
 <!-- ── NAV ── -->
 <nav id="nav">
-  <a href="#" class="nav-logo">Juli <span>Kumari</span></a>
+  <a href="#" class="nav-logo">
+    <img class="nav-avatar" src="https://raw.githubusercontent.com/julikumari23/portfolio/main/juli-profile.jpg" alt="Juli Kumari">
+    Juli <span>Kumari</span>
+  </a>
   <div class="nav-right">
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">
       <!-- Moon: shown in dark mode -->
